@@ -1,4 +1,4 @@
-##GIS内核-影像数据创建金字塔示例 ##
+## GIS内核-影像数据创建金字塔示例 ##
 
 void CPyramidThread(const char* strFile)  
 {  
