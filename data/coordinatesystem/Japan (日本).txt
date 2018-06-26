@@ -1,0 +1,77 @@
+38
+Japan Zone 9
+PROJCS["Japan_Zone_9",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",139.8333333333333],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",36],UNIT["Meter",1]]
+Japan Zone 8
+PROJCS["Japan_Zone_8",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",138.5],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",36],UNIT["Meter",1]]
+Japan Zone 7
+PROJCS["Japan_Zone_7",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",137.1666666666667],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",36],UNIT["Meter",1]]
+Japan Zone 6
+PROJCS["Japan_Zone_6",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",136],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",36],UNIT["Meter",1]]
+Japan Zone 5
+PROJCS["Japan_Zone_5",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",134.3333333333333],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",36],UNIT["Meter",1]]
+Japan Zone 4
+PROJCS["Japan_Zone_4",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",133.5],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",33],UNIT["Meter",1]]
+Japan Zone 3
+PROJCS["Japan_Zone_3",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",132.1666666666667],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",36],UNIT["Meter",1]]
+Japan Zone 2
+PROJCS["Japan_Zone_2",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",131],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",33],UNIT["Meter",1]]
+Japan Zone 19
+PROJCS["Japan_Zone_19",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",154],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",26],UNIT["Meter",1]]
+Japan Zone 18
+PROJCS["Japan_Zone_18",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",136],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",20],UNIT["Meter",1]]
+Japan Zone 17
+PROJCS["Japan_Zone_17",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",131],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",26],UNIT["Meter",1]]
+Japan Zone 16
+PROJCS["Japan_Zone_16",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",124],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",26],UNIT["Meter",1]]
+Japan Zone 15
+PROJCS["Japan_Zone_15",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",127.5],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",26],UNIT["Meter",1]]
+Japan Zone 14
+PROJCS["Japan_Zone_14",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",142],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",26],UNIT["Meter",1]]
+Japan Zone 13
+PROJCS["Japan_Zone_13",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",144.25],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",44],UNIT["Meter",1]]
+Japan Zone 12
+PROJCS["Japan_Zone_12",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",142.25],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",44],UNIT["Meter",1]]
+Japan Zone 11
+PROJCS["Japan_Zone_11",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",140.25],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",44],UNIT["Meter",1]]
+Japan Zone 10
+PROJCS["Japan_Zone_10",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",140.8333333333333],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",40],UNIT["Meter",1]]
+Japan Zone 1
+PROJCS["Japan_Zone_1",GEOGCS["GCS_Tokyo",DATUM["D_Tokyo",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",129.5],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",33],UNIT["Meter",1]]
+JGD 2000 Japan Zone 9
+PROJCS["JGD_2000_Japan_Zone_9",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",139.8333333333333],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",36],UNIT["Meter",1]]
+JGD 2000 Japan Zone 8
+PROJCS["JGD_2000_Japan_Zone_8",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",138.5],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",36],UNIT["Meter",1]]
+JGD 2000 Japan Zone 7
+PROJCS["JGD_2000_Japan_Zone_7",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",137.1666666666667],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",36],UNIT["Meter",1]]
+JGD 2000 Japan Zone 6
+PROJCS["JGD_2000_Japan_Zone_6",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",136],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",36],UNIT["Meter",1]]
+JGD 2000 Japan Zone 5
+PROJCS["JGD_2000_Japan_Zone_5",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",134.3333333333333],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",36],UNIT["Meter",1]]
+JGD 2000 Japan Zone 4
+PROJCS["JGD_2000_Japan_Zone_4",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",133.5],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",33],UNIT["Meter",1]]
+JGD 2000 Japan Zone 3
+PROJCS["JGD_2000_Japan_Zone_3",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",132.1666666666667],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",36],UNIT["Meter",1]]
+JGD 2000 Japan Zone 2
+PROJCS["JGD_2000_Japan_Zone_2",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",131],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",33],UNIT["Meter",1]]
+JGD 2000 Japan Zone 19
+PROJCS["JGD_2000_Japan_Zone_19",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",154],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",26],UNIT["Meter",1]]
+JGD 2000 Japan Zone 18
+PROJCS["JGD_2000_Japan_Zone_18",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",136],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",20],UNIT["Meter",1]]
+JGD 2000 Japan Zone 17
+PROJCS["JGD_2000_Japan_Zone_17",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",131],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",26],UNIT["Meter",1]]
+JGD 2000 Japan Zone 16
+PROJCS["JGD_2000_Japan_Zone_16",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",124],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",26],UNIT["Meter",1]]
+JGD 2000 Japan Zone 15
+PROJCS["JGD_2000_Japan_Zone_15",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",127.5],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",26],UNIT["Meter",1]]
+JGD 2000 Japan Zone 14
+PROJCS["JGD_2000_Japan_Zone_14",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",142],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",26],UNIT["Meter",1]]
+JGD 2000 Japan Zone 13
+PROJCS["JGD_2000_Japan_Zone_13",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",144.25],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",44],UNIT["Meter",1]]
+JGD 2000 Japan Zone 12
+PROJCS["JGD_2000_Japan_Zone_12",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",142.25],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",44],UNIT["Meter",1]]
+JGD 2000 Japan Zone 11
+PROJCS["JGD_2000_Japan_Zone_11",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",140.25],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",44],UNIT["Meter",1]]
+JGD 2000 Japan Zone 10
+PROJCS["JGD_2000_Japan_Zone_10",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",140.8333333333333],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",40],UNIT["Meter",1]]
+JGD 2000 Japan Zone 1
+PROJCS["JGD_2000_Japan_Zone_1",GEOGCS["GCS_JGD_2000",DATUM["D_JGD_2000",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",129.5],PARAMETER["Scale_Factor",0.9999],PARAMETER["Latitude_Of_Origin",33],UNIT["Meter",1]]
