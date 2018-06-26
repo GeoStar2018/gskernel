@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>610</width>
+    <height>544</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="Sqlite_add"/>
+   <addaction name="action_view"/>
+   <addaction name="action_symbol"/>
+  </widget>
+  <action name="Sqlite_add">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="jkl.qrc">
+     <normaloff>:/新前缀/jiazai.png</normaloff>:/新前缀/jiazai.png</iconset>
+   </property>
+   <property name="text">
+    <string>Sqlite_add</string>
+   </property>
+   <property name="toolTip">
+    <string>Sqlite</string>
+   </property>
+  </action>
+  <action name="action_view">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="jkl.qrc">
+     <normaloff>:/新前缀/viewtable.png</normaloff>:/新前缀/viewtable.png</iconset>
+   </property>
+   <property name="text">
+    <string>属性表</string>
+   </property>
+  </action>
+  <action name="action_symbol">
+   <property name="icon">
+    <iconset resource="jkl.qrc">
+     <normaloff>:/新前缀/color.png</normaloff>:/新前缀/color.png</iconset>
+   </property>
+   <property name="text">
+    <string>改变符号颜色</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="jkl.qrc"/>
+ </resources>
+ <connections/>
+</ui>

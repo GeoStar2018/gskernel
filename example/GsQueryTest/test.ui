@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TestClass</class>
+ <widget class="QMainWindow" name="TestClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Test</string>
+  </property>
+  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionAaa"/>
+   <addaction name="separator"/>
+   <addaction name="action"/>
+   <addaction name="separator"/>
+   <addaction name="action_2"/>
+   <addaction name="ZoomPan"/>
+   <addaction name="FullMap"/>
+   <addaction name="SelectByEnvelop"/>
+   <addaction name="QueryByEnv"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1000</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <action name="actionAaa">
+   <property name="text">
+    <string>加载数据</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>放大</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>缩小</string>
+   </property>
+  </action>
+  <action name="ZoomPan">
+   <property name="text">
+    <string>漫游</string>
+   </property>
+  </action>
+  <action name="FullMap">
+   <property name="text">
+    <string>全图</string>
+   </property>
+  </action>
+  <action name="SelectByEnvelop">
+   <property name="text">
+    <string>选择</string>
+   </property>
+  </action>
+  <action name="QueryByEnv">
+   <property name="text">
+    <string>查询</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="test.qrc"/>
+ </resources>
+ <connections/>
+ <designerdata>
+  <property name="gridDeltaX">
+   <number>10</number>
+  </property>
+  <property name="gridDeltaY">
+   <number>10</number>
+  </property>
+  <property name="gridSnapX">
+   <bool>true</bool>
+  </property>
+  <property name="gridSnapY">
+   <bool>true</bool>
+  </property>
+  <property name="gridVisible">
+   <bool>true</bool>
+  </property>
+ </designerdata>
+</ui>
