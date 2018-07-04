@@ -1,4 +1,4 @@
-* 第一步先下载安装包：[GitHubSetup.exe](/uploads/d0f3edcd63c77f74915abdee61d8abb0/GitHubSetup.exe)，然后到github官网注册https://github.com/login      注册的邮箱统一为我们的公司邮箱，安装好后有两个图标，一个windows版，一个命令行版，图标是这样的![20](uploads/3672d484fd3fbefdd18699eb9eaa495e/20.png)
+* 第一步先下载安装包：[GitHubSetup.exe](/uploads/d0f3edcd63c77f74915abdee61d8abb0/GitHubSetup.exe)，然后到github官网注册https://github.com/login      注册的邮箱统一为我们的公司邮箱，安装好后有两个图标，一个windows版，一个命令行版，图标是这样的![20](github_picture/20.png)
 * 第二步大家把用户名告诉我，我会统一邀请大家到一个项目中来，到时候大家会在web的右上角的位置看到消息通知点击进去accept我的请求就行。但是消息通知默认是不显示的，需要自己开启，参考网址http://www.cnblogs.com/liuleilei/p/6486665.html    这个网址的 【三、工具栏  第 6 个图标 】详细介绍了开启消息通知的方法。 强烈建议大家把这个网址的每个图标，每个英文单词代表什么意思了解一下，学习一下
 
 ![1](github_picture/1.png)
