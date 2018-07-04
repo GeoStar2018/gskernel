@@ -82,7 +82,7 @@
 
 * 打开页面后 点branch——create branch 就可建立新的分支，比如创建了geostar_B分支，然后这个分支新增了个文件叫“B.txt”,如图
 ![23](github_picture/23.png)!
-![24__2_](github_picture/24__2_.png)
+![24](github_picture/24.png)
 * 然后切换到github desktop会发现changes图标已经检测到我们新增了“B.txt”，此时我们需要先把这个改变提交到geostar_B分支，然后 push origin到云端，这样的话云端也就同步了B分支的信息
 ![25](github_picture/25.png)
 ![26](github_picture/26.png)
