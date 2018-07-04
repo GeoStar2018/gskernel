@@ -12,7 +12,7 @@
 比如在本地自己的项目路径下新增了一份文档叫“第一份文档.txt”，那么打开github客户端找到刚刚的项目——changes——commit to master，此时并没有真正提交到云端，还需要点击一下右上角的Sync才能将提交的东西同步到云端。此时，打开网页版就能看到我们刚刚提交的东西。
 
 
-![5](/github_picture/5.png)![6](/github_picture/6.png)![7](/github_picture/7.png)![8](/github_picture/8.png)
+![5](github_picture/5.png)![6](/github_picture/6.png)![7](/github_picture/7.png)![8](/github_picture/8.png)
 
 ### 怎么解决冲突？
 建议在每次工作时先点一下右上角的Sync同步一下，尽量避免产生冲突，如果提交代码时，commit to master是肯定能成功的，然后同步Sync的时候发现失败了，也就是出现下面页面，![9](/github_picture/9.png)
