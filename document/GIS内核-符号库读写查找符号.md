@@ -1,9 +1,9 @@
-GIS内核读取符号库文件(*.SYMX)
+﻿GIS内核读取符号库文件(*.SYMX)
 
 	查找code为43的符号
     
 	
-	GsSymbolLibrary lib("C:\\*.SYMX");
+	GsSymbolLibrary lib("C:\\a.SYMX");
 	
 	GsSymbolPtr ptrSym = lib.SymbolByCode(43);
 	GsSymbolPtr ptrSym = lib.SymbolByName("a");
