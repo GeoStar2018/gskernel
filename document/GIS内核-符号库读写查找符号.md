@@ -2,7 +2,7 @@
 
 	查找code为43的符号
     
-	
+	GsKernel::Initialize();
 	GsSymbolLibrary lib("C:\\a.SYMX");
 	
 	GsSymbolPtr ptrSym = lib.SymbolByCode(43);
