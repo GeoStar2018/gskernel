@@ -1367,3 +1367,5 @@ GsLegendClassFormat是描述GsLegendClass的信息样式。
 ```
 
 我们在用的过程中，实际只用了m_ptrPatchSymbol的成员变量。m_ptrDescriptionSymbol和m_ptrLabelSymbol变量是预备给将来使用，现阶段暂时无效果。
+
+**ByAutor:yulei and wuyongbo**
