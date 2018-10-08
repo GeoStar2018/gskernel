@@ -2,7 +2,7 @@
 
 制图需要将制图对象和视图map绑定起来,并且刷新的时候不能调用map的update,只有退出视图模式才能调用,否则可能产生线程安全问题, 也就是要控制视图状态,基本的使用如下:
 
-当前视图转为制图视图:
+当前视图切换为制图视图模式:
     
     GsPageLayout m_pLayout = new GsPageLayout(space->m_ptrGeoMap->ScreenDisplay());  
     m_pLayout->ViewExtent(space->fullExtent());  
