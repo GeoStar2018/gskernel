@@ -19,7 +19,6 @@
     GsSimplePointSymbolPtr ptrSymBol = new GsSimplePointSymbol(GsColor::Red,20);<span style="white-space:pre;"> </span>  
     GsGeometyElementPtr pteGeometryEle = new GsGeometyElement(point, ptrSymBol);  
     space->m_pLayout->ElementContainer()->Add(pteGeometryEle);  
-    <span style="white-space:pre;"> </span>  
     //刷新  
     space->m_isLayOut = true;  
     space->stopRendering();  
