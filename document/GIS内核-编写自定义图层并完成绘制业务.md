@@ -11,34 +11,33 @@
     class  GsCoustomRasterLayer :public GsLayer  
     {  
     public:  
-    <span style="white-space:pre;"> </span>GsCoustomRasterLayer();  
-    <span style="white-space:pre;"> </span>~GsCoustomRasterLayer();  
+        GsCoustomRasterLayer();  
+        ~GsCoustomRasterLayer();  
       
       
     private:  
-    <span style="white-space:pre;"> </span>GsVector<GsRasterLayerPtr> m_Lys;  
-    <span style="white-space:pre;"> </span>GsFeatureLayerPtr m_ptrfcsLayer;  
-    <span style="white-space:pre;"> </span>GsString m_ClipGeometryField;  
-    <span style="white-space:pre;"> </span>virtual bool InnerDraw(GsDisplay* pDisplay, GsTrackCancel* pCancel, GsDrawPhase eDrawPhase);  
-    <span style="white-space:pre;"> </span>//根据特定规则找到每个影像图层对应的数据集裁切几何的对象  
-    <span style="white-space:pre;"> </span>GsGeometry* FindGeometry(const char *strLyrName);  
+        GsVector<GsRasterLayerPtr> m_Lys;  
+        GsFeatureLayerPtr m_ptrfcsLayer;  
+        GsString m_ClipGeometryField;  
+        virtual bool InnerDraw(GsDisplay* pDisplay, GsTrackCancel* pCancel, GsDrawPhase eDrawPhase);  
+        //根据特定规则找到每个影像图层对应的数据集裁切几何的对象  
+        GsGeometry* FindGeometry(const char *strLyrName);  
     public:  
-    <span style="white-space:pre;"> </span>// 通过 GsLayer 继承  
-    <span style="white-space:pre;"> </span>virtual GsBox Extent(GsSpatialReference * pTargetSR = 0) override;  
+        // 通过 GsLayer 继承  
+        virtual GsBox Extent(GsSpatialReference * pTargetSR = 0) override;      
+      
+        virtual bool HasSelection() override;  
       
       
-    <span style="white-space:pre;"> </span>virtual bool HasSelection() override;  
+        virtual GsSmarterPtr<GsLayer> Clone() override;  
       
       
-    <span style="white-space:pre;"> </span>virtual GsSmarterPtr<GsLayer> Clone() override;  
-      
-      
-    <span style="white-space:pre;"> </span>void AddRasterLayer(GsRasterLayer *pLayer);  
-    <span style="white-space:pre;"> </span>void RemoveRasterLayer(const char * strLyrName);  
-    <span style="white-space:pre;"> </span>void ClearLayers();  
-    <span style="white-space:pre;"> </span>GsVector<GsRasterLayerPtr >* RasterLayers();  
-    <span style="white-space:pre;"> </span>GsFeatureLayer* FeatureLayer();  
-    <span style="white-space:pre;"> </span>void FeatureLayer(GsFeatureLayer* pFeaLyr);  
+        void AddRasterLayer(GsRasterLayer *pLayer);  
+        void RemoveRasterLayer(const char * strLyrName);  
+        void ClearLayers();  
+        GsVector<GsRasterLayerPtr >* RasterLayers();  
+        GsFeatureLayer* FeatureLayer();  
+        void FeatureLayer(GsFeatureLayer* pFeaLyr);  
     };  
     GS_SMARTER_PTR(GsCoustomRasterLayer);  
 
@@ -55,95 +54,95 @@ cpp文件实现:
       
     bool GsCoustomRasterLayer::InnerDraw(GsDisplay * pDisplay, GsTrackCancel * pCancel, GsDrawPhase eDrawPhase)  
     {  
-    std::vector<GsRasterLayerPtr >::iterator it = m_Lys.begin();  
-    for (; it != m_Lys.end(); it++)  
-    {  
-      
-    GsGeometryPtr pGeo = FindGeometry((*it)->Name().c_str());  
-    (*it)->ClipGeometry(pGeo);  
-    (*it)->Draw(pDisplay, pCancel, eDrawPhase);  
-    }  
-    m_ptrfcsLayer->Draw(pDisplay, pCancel, eDrawPhase);  
-    return false;  
+        std::vector<GsRasterLayerPtr >::iterator it = m_Lys.begin();  
+        for (; it != m_Lys.end(); it++)  
+        {  
+
+            GsGeometryPtr pGeo = FindGeometry((*it)->Name().c_str());  
+            (*it)->ClipGeometry(pGeo);  
+            (*it)->Draw(pDisplay, pCancel, eDrawPhase);  
+        }  
+        m_ptrfcsLayer->Draw(pDisplay, pCancel, eDrawPhase);  
+        return false;  
     }  
       
     GsGeometry * GsCoustomRasterLayer::FindGeometry(const char * strLyrName)  
     {  
-    return nullptr;  
+         return nullptr;  
     }  
-      
+            
     GsBox GsCoustomRasterLayer::Extent(GsSpatialReference * pTargetSR)  
     {  
-    std::vector<GsRasterLayerPtr >::iterator it = m_Lys.begin();  
-    GsBox boxret;  
-    for (; it != m_Lys.end(); it++)  
-    {  
-    GsBox box = (*it)->Extent();  
-    if (box.IsValid())  
-    boxret.Union(box);  
-    }  
+        std::vector<GsRasterLayerPtr >::iterator it = m_Lys.begin();  
+        GsBox boxret;  
+        for (; it != m_Lys.end(); it++)  
+        {  
+            GsBox box = (*it)->Extent();  
+            if (box.IsValid())  
+            boxret.Union(box);  
+        }  
       
-    return boxret;  
+        return boxret;  
     }  
       
     bool GsCoustomRasterLayer::HasSelection()  
     {  
-    return false;  
+        return false;  
     }  
       
     GsSmarterPtr<GsLayer> GsCoustomRasterLayer::Clone()  
     {  
-    std::vector<GsRasterLayerPtr >::iterator it = m_Lys.begin();  
-    GsCoustomRasterLayerPtr ptrColne = new GsCoustomRasterLayer();  
-    for (; it != m_Lys.end(); it++)  
-    ptrColne->RasterLayers()->push_back((*it)->Clone());  
-    GsFeatureLayerPtr pLyr = m_ptrfcsLayer->Clone();  
-    ptrColne->FeatureLayer(pLyr);  
-      
-    //基础属性  
-    GsLayerPtr pLayer = ptrColne;  
-    pLayer->Name(Name().c_str());  
-    pLayer->Visible(Visible());  
-    pLayer->AliasName(AliasName().c_str());  
-    pLayer->MinScale(MinScale());  
-    pLayer->MaxScale(MaxScale());  
-    pLayer->ReferenceScale(ReferenceScale());  
-    pLayer->Tag(Tag());  
-      
-    return ptrColne;  
+        std::vector<GsRasterLayerPtr >::iterator it = m_Lys.begin();  
+        GsCoustomRasterLayerPtr ptrColne = new GsCoustomRasterLayer();  
+        for (; it != m_Lys.end(); it++)  
+            ptrColne->RasterLayers()->push_back((*it)->Clone());  
+        GsFeatureLayerPtr pLyr = m_ptrfcsLayer->Clone();  
+        ptrColne->FeatureLayer(pLyr);  
+
+        //基础属性  
+        GsLayerPtr pLayer = ptrColne;  
+        pLayer->Name(Name().c_str());  
+        pLayer->Visible(Visible());  
+        pLayer->AliasName(AliasName().c_str());  
+        pLayer->MinScale(MinScale());  
+        pLayer->MaxScale(MaxScale());  
+        pLayer->ReferenceScale(ReferenceScale());  
+        pLayer->Tag(Tag());  
+
+        return ptrColne;  
     }  
       
     void  GsCoustomRasterLayer::AddRasterLayer(GsRasterLayer * pLayer)  
     {  
-    m_Lys.push_back(pLayer);  
+        m_Lys.push_back(pLayer);  
     }  
       
     void GsCoustomRasterLayer::RemoveRasterLayer(const char * strLyrName)  
     {  
-    std::vector<GsRasterLayerPtr >::iterator it = m_Lys.begin();  
-    for (; it != m_Lys.end(); it++)  
-    {  
-    if (GsCRT::_stricmp((*it)->Name().c_str(), strLyrName))  
-    {  
-    m_Lys.erase(it);  
-    break;  
-    }  
-    }  
+        std::vector<GsRasterLayerPtr >::iterator it = m_Lys.begin();  
+        for (; it != m_Lys.end(); it++)  
+        {  
+            if (GsCRT::_stricmp((*it)->Name().c_str(), strLyrName))  
+            {  
+                   m_Lys.erase(it);  
+                   break;  
+            }  
+        }  
     }  
       
     void GsCoustomRasterLayer::ClearLayers()  
     {  
-    m_Lys.clear();  
+        m_Lys.clear();  
     }  
       
     GsVector<GsRasterLayerPtr>* GsCoustomRasterLayer::RasterLayers()  
     {  
-    return &m_Lys;  
+        return &m_Lys;  
     }  
       
     GsFeatureLayer * GsCoustomRasterLayer::FeatureLayer()  
     {  
-    return m_ptrfcsLayer.p;  
+        return m_ptrfcsLayer.p;  
     }  
       
     void GsCoustomRasterLayer::FeatureLayer(GsFeatureLayer * pFeaLyr)  
