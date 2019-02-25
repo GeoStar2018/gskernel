@@ -1,4 +1,4 @@
-GIS内核-数据源示例-WFS查询示例
+﻿GIS内核-数据源示例-WFS查询示例
 
 	GS_TEST(VectorTile, WFS, cj, 20170714)
 	{
@@ -30,7 +30,7 @@ GIS内核-数据源示例-WFS查询示例
 			if (!ptrFea)
 				break;
 			int t = ptrFea->FeatureClass()->Fields().FindField("OID");
-			int oid = ptrFea->ValueInt64(0);
+			int oid = ptrFea->ValueInt64(t);
 			nCount++;
 		} while (ptrCur->Next(ptrFea));
 		EXPECT_EQ(nCount > 0, true);
