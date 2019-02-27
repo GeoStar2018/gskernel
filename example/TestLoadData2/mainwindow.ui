@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindowClass</class>
+ <widget class="QMainWindow" name="MainWindowClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>UseKernelDemo</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout"/>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>600</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionViewin"/>
+   <addaction name="actionViewout"/>
+   <addaction name="actionMappan"/>
+   <addaction name="separator"/>
+   <addaction name="actionSelectByEnvelope"/>
+   <addaction name="actionFullView"/>
+   <addaction name="actionUpdate"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <action name="actionViewin">
+   <property name="text">
+    <string>放大</string>
+   </property>
+   <property name="toolTip">
+    <string>放大</string>
+   </property>
+  </action>
+  <action name="actionViewout">
+   <property name="text">
+    <string>缩小</string>
+   </property>
+   <property name="toolTip">
+    <string>缩小</string>
+   </property>
+  </action>
+  <action name="actionMappan">
+   <property name="text">
+    <string>漫游</string>
+   </property>
+   <property name="toolTip">
+    <string>漫游</string>
+   </property>
+  </action>
+  <action name="actionSelectByEnvelope">
+   <property name="text">
+    <string>矩形选择</string>
+   </property>
+   <property name="toolTip">
+    <string>矩形选择</string>
+   </property>
+  </action>
+  <action name="actionFullView">
+   <property name="text">
+    <string>全图显示</string>
+   </property>
+   <property name="toolTip">
+    <string>全图显示</string>
+   </property>
+  </action>
+  <action name="actionUpdate">
+   <property name="text">
+    <string>刷新</string>
+   </property>
+   <property name="toolTip">
+    <string>刷新</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="mainwindow.qrc"/>
+ </resources>
+ <connections/>
+</ui>

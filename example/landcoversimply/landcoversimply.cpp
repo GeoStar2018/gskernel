@@ -491,7 +491,7 @@ int main(int argc, char **argv)
 	KERNEL_NAME::GsFeatureClassPtr ptrCombine = ptrGDB->CreateFeatureClass("Combine", fs
 			, col, ptrSR);
 
-	Combine(ptrFeaClassSimple, ptrCombine,strField.c_str());
+	Combine(ptrFeaClassSimple, ptrCombine, UTILITY_NAME::GsEncoding::ToUtf8(strField.c_str()).c_str());
 	 
     return 0;
 }
