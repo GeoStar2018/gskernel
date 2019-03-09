@@ -1,4 +1,4 @@
-GIS内核- 几何对象与WKB互相转换
+﻿GIS内核- 几何对象与WKB互相转换
 	
 	void GeometryReadWriter()
 	{
@@ -9,7 +9,7 @@ GIS内核- 几何对象与WKB互相转换
 	
 		//GsGeometry->WKB
 		GsGrowByteBuffer buff;
-		GsWKBOGCWriter w(&buff,eNDR);
+		GsWKBOGCWriter w(&buff);
 		w.Write(ptrPolygon);
 		GsGrowByteBuffer * buffout = w.WKB();
 		//WKB->GsGeometry
