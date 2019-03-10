@@ -5,45 +5,45 @@ GIS内核-GsGeometry 转为WKB的效率问题
 
 下面的例子演示了,将一个FCS数据内的几何读出来 ,然后写为WKB ,下一步又变为几何对象, 最后存到数据库中,经过效率对比, 98%的时间将画在几何检查, 如果把Simple检查设置false 将大幅度提升写入性能!
 
-GS_TEST(WkbRead,ReadWriterMultiPolygon2,chijing,20150707)
-{ 
-	this->RecordProperty("readme","利用wkbread读入有两个外圈一个内圈组成的mutipolygon");
-	GsConnectProperty conn;
-	conn.DataSourceType = eSqliteFile;
-	conn.Server = "C:\\Users\\chijing\\Desktop";
-	GsSqliteGeoDatabaseFactory obj;
-	GsGeoDatabasePtr ptrDB = obj.Open(conn);
-	GsFeatureClassPtr feaclass = ptrDB->OpenFeatureClass("WORLD");
-
-	GsFeatureCursorPtr ptrCursor = feaclass->Search();
-	GsFeaturePtr ptrFea = ptrCursor->Next();
-	GsGrowByteBuffer buff;
-	GsWKBOGCWriter w(&buff);
-	GsWKBOGCReader r;
-	w.Simple(false);
-	GsFeatureClassPtr pdstFeacls =  ptrDB->CreateFeatureClass("WORLD43", feaclass->Fields(), feaclass->GeometryColumnInfo(), feaclass->SpatialReference());
-	pdstFeacls->CreateSpatialIndex();
-	GsFeaturePtr ptrdstFea =  pdstFeacls->CreateFeature();
-
-	pdstFeacls->Transaction()->StartTransaction();
-	int nCOunt = 0;
-	do
-	{
-		w.Reset();
-		
-		w.Write(ptrFea->Geometry());
-		r.Begin(buff.BufferHead(), buff.BufferSize());
-		GsGeometryPtr ptmp = r.Read();
-		nCOunt++;
-		if (nCOunt >= 1000)
+	GS_TEST(WkbRead,ReadWriterMultiPolygon2,chijing,20150707)
+	{ 
+		this->RecordProperty("readme","利用wkbread读入有两个外圈一个内圈组成的mutipolygon");
+		GsConnectProperty conn;
+		conn.DataSourceType = eSqliteFile;
+		conn.Server = "C:\\Users\\chijing\\Desktop";
+		GsSqliteGeoDatabaseFactory obj;
+		GsGeoDatabasePtr ptrDB = obj.Open(conn);
+		GsFeatureClassPtr feaclass = ptrDB->OpenFeatureClass("WORLD");
+	
+		GsFeatureCursorPtr ptrCursor = feaclass->Search();
+		GsFeaturePtr ptrFea = ptrCursor->Next();
+		GsGrowByteBuffer buff;
+		GsWKBOGCWriter w(&buff);
+		GsWKBOGCReader r;
+		w.Simple(false);
+		GsFeatureClassPtr pdstFeacls =  ptrDB->CreateFeatureClass("WORLD43", feaclass->Fields(), feaclass->GeometryColumnInfo(), feaclass->SpatialReference());
+		pdstFeacls->CreateSpatialIndex();
+		GsFeaturePtr ptrdstFea =  pdstFeacls->CreateFeature();
+	
+		pdstFeacls->Transaction()->StartTransaction();
+		int nCOunt = 0;
+		do
 		{
-			pdstFeacls->Transaction()->CommitTransaction();
-			pdstFeacls->Transaction()->StartTransaction();
-		}
-		ptrdstFea->OID(-1);
-		ptrdstFea->Geometry(ptmp);
-		ptrdstFea->Store();
-	} while (ptrCursor->Next(ptrFea));
-	pdstFeacls->Transaction()->CommitTransaction();
-	pdstFeacls->CreateSpatialIndex();
-}
+			w.Reset();
+			
+			w.Write(ptrFea->Geometry());
+			r.Begin(buff.BufferHead(), buff.BufferSize());
+			GsGeometryPtr ptmp = r.Read();
+			nCOunt++;
+			if (nCOunt >= 1000)
+			{
+				pdstFeacls->Transaction()->CommitTransaction();
+				pdstFeacls->Transaction()->StartTransaction();
+			}
+			ptrdstFea->OID(-1);
+			ptrdstFea->Geometry(ptmp);
+			ptrdstFea->Store();
+		} while (ptrCursor->Next(ptrFea));
+		pdstFeacls->Transaction()->CommitTransaction();
+		pdstFeacls->CreateSpatialIndex();
+	}
