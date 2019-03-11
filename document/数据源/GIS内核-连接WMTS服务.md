@@ -20,7 +20,7 @@
     GsTMSTileClassPtr tms = Raster;  
     //http://t1.tianditu.com/DataServer?T=vec_w&x=${Col}&y=${Row}&l=${Level}  
     //这里为模板,这个模板是根据网络请求串抓取的,后期可能封装成常用服务串  
-    tms->UrlTemplate("http://t6.tianditu.com/DataServer?T=img_w&x=${Col}&y=${Row}&l=${Level}");  
+    tms->UrlTemplate("http://t${Odd-Even7}.tianditu.com/DataServer?T=img_w&x=${Col}&y=${Row}&l=${Level}&tk=2ce94f67e58faa24beb7cb8a09780552");  
     tms->TileType(ePngType);  
     //这里是缓存,浏览过的瓦片会缓存到此数据集  
     GsGeoDatabaseFactoryPtr cacheFac = new GsSqliteGeoDatabaseFactory();  
