@@ -6,7 +6,7 @@
 
 符号模块主要包含四个方面的内容:
 
-![](md_pictures/a.jpg)
+![](./md_pictures/a.jpg)
 
 
 1.	canvas，绘制画布的的抽象，可以实现二维矢量、图片的绘制，类似windows的HDC，canvas具有不同的实现版本，在GIS内核中主要实现基于QT绘制引擎的QTCanvas，在QTPort中实现。基于Agg开源绘制引擎的AggCanvas作为原生的实现存在，基于windows7的Direct2D技术封装的D2DCanvas在Win32Port中实现。
