@@ -7,6 +7,7 @@
 
 	GsWellknownTMSUriParserPtr ptrUriParser = new GsWellknownTMSUriParser(GsWellknownWebTileService::eTiandituVectorGeographicWMTS);
 	GsWebUriParserPtr webparser = ptrUriParser;
+	//这里需要使用自己的key,不然可能会被拒绝,可以需要用户自己申请
 	webparser->UserParameter().AddPair("tk", "2ce94f67e58faa24beb7cb8a09780552");
 	GsString str = ptrUriParser->FormatUri();
 
