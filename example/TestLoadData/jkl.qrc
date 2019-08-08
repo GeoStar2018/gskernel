@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="新前缀">
-    <file>jiazai.png</file>
-    <file>color.png</file>
-    <file>viewtable.png</file>
-  </qresource>
-</RCC>

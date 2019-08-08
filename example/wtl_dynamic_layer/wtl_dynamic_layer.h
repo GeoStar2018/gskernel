@@ -1,1 +1,0 @@
-// wtl_openmap.h

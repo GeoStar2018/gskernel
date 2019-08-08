@@ -1,1 +1,0 @@
-// WebMercatorVSWGS84.h
