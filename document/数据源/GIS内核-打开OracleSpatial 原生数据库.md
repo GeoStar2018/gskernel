@@ -1,0 +1,19 @@
+
+GIS内核-打开OracleSpatial 原生数据库 
+
+GS_TEST(FileGeoDatabase, OpenDataRosdasadomFolder, cj, 20180615)
+{
+	GsPCGeoDatabase::Initialize();
+	GsRefObject* refObj = GsClassFactory::CreateInstance("OracleSpatialGeoDatabaseFactory");
+	GsGeoDatabaseFactoryPtr vFac = dynamic_cast<GsGeoDatabaseFactory*>(refObj);
+	GsConnectProperty connOra;
+	connOra.Server = "guanyu-pc";
+	connOra.Database = "orcl";
+	connOra.User = "testuser";
+	connOra.Password = "1";
+	connOra.Port = 1521;
+	connOra.DataSourceType = eOracleSpatial2;
+	GsGeoDatabasePtr pGeoDB =  vFac->Open(connOra);
+	GsFeatureClassPtr pFcs = pGeoDB->OpenFeatureClass("R1");
+	GsFeatureType ptype =  pFcs->GeometryColumnInfo().FeatureType;
+}
