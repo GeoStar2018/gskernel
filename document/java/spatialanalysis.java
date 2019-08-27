@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Random;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -317,6 +318,115 @@ public class spatialanalysis {
 
 		String strServer = strCurDir+ "/data/gt";
 		intersect(strServer,"TDLYGNFQ_DT","ZG_YD_GHDK_DT",0.001,"intersect");
+	}
+	
+    public static byte[] float2byte(float f) {
+        
+        // 把float转换为byte[]
+        int fbit = Float.floatToIntBits(f);
+        
+        byte[] b = new byte[4];  
+        for (int i = 0; i < 4; i++) {  
+            b[i] = (byte) (fbit >> (24 - i * 8));  
+        } 
+        
+        // 翻转数组
+        int len = b.length;
+        // 建立一个与源数组元素类型相同的数组
+        byte[] dest = new byte[len];
+        // 为了防止修改源数组，将源数组拷贝一份副本
+        System.arraycopy(b, 0, dest, 0, len);
+        byte temp;
+        // 将顺位第i个与倒数第i个交换
+        for (int i = 0; i < len / 2; ++i) {
+            temp = dest[i];
+            dest[i] = dest[len - i - 1];
+            dest[len - i - 1] = temp;
+        }
+        
+        return dest;
+        
+    }
+    
+    /**
+     * 字节转换为浮点
+     * 
+     * @param b 字节（至少4个字节）
+     * @param index 开始位置
+     * @return
+     */
+    public static float byte2float(byte[] b, int index) {  
+        int l;                                           
+        l = b[index + 0];                                
+        l &= 0xff;                                       
+        l |= ((long) b[index + 1] << 8);                 
+        l &= 0xffff;                                     
+        l |= ((long) b[index + 2] << 16);                
+        l &= 0xffffff;                                   
+        l |= ((long) b[index + 3] << 24);                
+        return Float.intBitsToFloat(l);                  
+    }
+	
+	@Test
+	public void testRasterContour() { 
+	
+		//创建矢量输出
+		String strCurDir = System.getProperty("user.dir");
+		String strServer = strCurDir+ "/data";
+		GsSqliteGeoDatabaseFactory fcsfac = new GsSqliteGeoDatabaseFactory();
+		GsConnectProperty conn = new GsConnectProperty() ;
+		conn.setServer( strServer);
+		conn.setDataSourceType ( GsDataSourceType.eSqliteFile);
+		GsGeoDatabase pteDB =  fcsfac.Open(conn);
+		GsFeatureClass pFcs = pteDB.OpenFeatureClass("rasterContourtest");
+		if (pFcs != null)
+			pFcs.Delete();
+		GsFieldVector fdvec = new GsFieldVector();
+		GsFields fds = new GsFields();
+		fdvec.add(new GsField("id",GsFieldType.eIntType));
+		fdvec.add(new GsField("height", GsFieldType.eDoubleType));
+		fds.setFields(fdvec);
+		GsGeometryColumnInfo geoInfo = new GsGeometryColumnInfo();
+		geoInfo.setFeatureType(GsFeatureType.eSimpleFeature);
+		geoInfo.setGeometryType(GsGeometryType.eGeometryTypePolyline);
+		geoInfo.setXYDomain(new GsBox(-180, -90, 180, 90));
+		pFcs = pteDB.CreateFeatureClass("rasterContourtest",fds, geoInfo, new GsSpatialReference(4326));
+		if (pFcs == null)
+			return;
+		
+		FeatureWriter fwriter = new FeatureWriter(pFcs);
+		
+		//随机生成地形数据 256*256
+		int length =256*256;
+		Random r = new Random();
+		byte[] bytebuff = new byte[256*256];
+		r.nextBytes(bytebuff);
+		GsRaster pras = new GsRaster();
+		pras.DataPtr(bytebuff, length);
+		pras.Width(256);
+		pras.Height(256);
+		GsRasterContour ptrRaserAna= new GsRasterContour();
+		double Nodatavalue = -99999;
+		boolean useNoData = true;
+		ptrRaserAna.UseNoData(useNoData);
+		ptrRaserAna.NoDataValue(Nodatavalue);
+		GsRasterColumnInfo rsInfo = new GsRasterColumnInfo();
+		rsInfo.setDataType(GsRasterDataType.eByteRDT );
+		//类似tif文件的tfw 信息, 分辨率起始点
+		double GT[]={0.700389105058,
+				0.000000000000,
+				0.000000000000,
+				-0.700389105058,
+				0.350194552529,
+				89.649805447471};
+		rsInfo.setGeoTransform(GT);
+		rsInfo.setBlockHeight(256);
+		rsInfo.setBlockWidth(256);;
+		ptrRaserAna.RasterColumnInfo(rsInfo);
+		double test[]={0,0,0,0,0,0};
+		//使用数据, 第二个参数为等高线间距为100, 
+		boolean bok = ptrRaserAna.Contour(pras, 50, 0, 0, test, fwriter);
+		fwriter.Commit();
 	}
 }
 class TxtFeatureWriter extends GsAnalysisDataIO{
