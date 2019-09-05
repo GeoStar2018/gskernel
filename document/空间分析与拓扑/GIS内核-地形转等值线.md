@@ -95,3 +95,125 @@ GIS内核-地形转等值线示例
 			}
 		}
 	}
+
+-2接口更加通用, 不仅仅用于栅格,还可以用于任何点矩阵数据
+
+	
+	/*
+		7, 4, 1
+		8, 5, 2
+		9, 6, 3
+		13,12,11
+	
+			||
+			\/
+		1,2,3 ,11  
+		4,5,6 ,12  
+		7,8,9 ,13
+	*/
+	
+	
+	//矩阵行列转换
+	void RowColumnTransposition(double * pData, int &w, int &h)
+	{
+		double * pdbltmp = (double*)malloc(sizeof(double)*w*h);
+		memcpy(pdbltmp, pData, sizeof(double)*w*h);
+		for (int i = 0; i < w; i++)
+		{
+			for (int j = 0; j < h; j++)
+			{
+				pData[i*h+j] = pdbltmp[j*w + i];
+			}
+		}
+		free(pdbltmp);
+		int tmp = w;
+		w = h;
+		h = tmp;
+	}
+	
+	
+	GS_TEST(GsRasterAnalysis, GRIDGeoJson, chijing, 20190917)
+	{
+	
+		//创建fcs 用于保存等值线分析结果
+		std::string fcsFolder = this->MakeInputFolder(GsEncoding::ToUtf8("rasteranalysis"));
+		GsSqliteGeoDatabaseFactoryPtr fcsfac = new GsSqliteGeoDatabaseFactory();
+		GsConnectProperty conn;
+		conn.Server = GsUtf8(fcsFolder.c_str()).Str().c_str();
+		conn.DataSourceType = eSqliteFile;
+		GsGeoDatabasePtr pteDB = fcsfac->Open(conn);
+		GsFeatureClassPtr pFcs = pteDB->OpenFeatureClass("gridrwp");
+		if (pFcs)
+			pFcs->Delete();
+	
+		GsFields fds;
+		fds.Fields.emplace_back("id", GsFieldType::eIntType);
+		fds.Fields.emplace_back("h", GsFieldType::eDoubleType);
+		GsGeometryColumnInfo geoInfo;
+		geoInfo.FeatureType = eSimpleFeature;
+		//geoInfo.GeometryType = eGeometryTypePolyline;
+		geoInfo.GeometryType = eGeometryTypePolygon;
+		geoInfo.XYDomain = GsBox(-180, -90, 180, 90);
+		pFcs = pteDB->CreateFeatureClass("gridrwp", fds, geoInfo, new GsSpatialReference(4326));
+		if (!pFcs)
+			return;
+		FeatureClassWrtier FeatureIO(pFcs.p);
+	
+		//读取高程
+		std::vector<double> pbuff;
+		Json::Reader *pJsonParser = new Json::Reader();
+		GsFile file("C:\\Users\\chijing\\Desktop\\grid.json");
+		GsString strJson = file.ReadAll();
+	
+		Json::Value tempVal;
+	
+		if (!pJsonParser->parse(strJson.c_str(), tempVal)) {
+			return;
+		}
+	
+		double max = 0, min = 0;
+		int w = 0;
+		int h = tempVal.size();
+		GsSimpleBitmapPtr bitmap = new GsSimpleBitmap(412, 501);
+	
+		bool flag = true;
+		for (int i = 0; i < tempVal.size(); i++) {
+			w = tempVal[i].size();
+			unsigned char* pRow = (unsigned char*)bitmap->Row(i);
+			for (int j = 0; j < tempVal[i].size(); j++)
+				if (tempVal[i][j].isNull())
+				{
+					pbuff.emplace_back(-10);
+					pRow[4*j] = (char)0;
+					pRow[4*j+1] = (char)0;
+					pRow[4*j+2] = (char)0;
+					pRow[4*j+3] = (char)255;
+				}
+				else
+				{
+					double db = tempVal[i][j].asDouble();
+					if (flag) {
+						max = min = db;
+						flag = false;
+					}
+					if (db > max) max = db;
+					if (db < min) min = db;
+	
+					pbuff.emplace_back(db);
+					pRow[4*j] = (char)125;
+					pRow[4*j + 1] = (char)125;
+					pRow[4*j + 2] = (char)125;
+					pRow[4*j + 3] = (char)125;
+				}
+		}
+		//查看数据的二值图像
+		bitmap->SavePNG("D:\\a.png");
+		double dfContourInterval =  (max - min) / 10/2;
+		//构造栅格分析类
+		GsRasterContourPtr ptrRaserAna = new GsRasterContour();
+		double *pHead = &pbuff[0];
+		//行列转置
+		RowColumnTransposition(&pbuff[0], w, h);
+		ptrRaserAna->Contour(&pbuff[0], w, h, 0.00476953125, 0.00476953125, 108.61524498800009, 18.193182648400135, false, -10, 2, dfContourInterval, min, 0, NULL, &FeatureIO);
+	}
+
