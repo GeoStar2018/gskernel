@@ -1,7 +1,7 @@
 package unittest;
 
 import static org.junit.Assert.assertNotNull;
-
+import java.io.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.junit.After;
@@ -21,6 +22,7 @@ import org.junit.Test;
 
 import com.geostar.kernel.*;
 import com.geostar.kernel.spatialanalysis.*;
+
 
 public class spatialanalysis {
 
@@ -406,29 +408,70 @@ public class spatialanalysis {
 		pras.Width(256);
 		pras.Height(256);
 		GsRasterContour ptrRaserAna= new GsRasterContour();
-		double Nodatavalue = -99999;
-		boolean useNoData = true;
-		ptrRaserAna.UseNoData(useNoData);
-		ptrRaserAna.NoDataValue(Nodatavalue);
-		GsRasterColumnInfo rsInfo = new GsRasterColumnInfo();
-		rsInfo.setDataType(GsRasterDataType.eByteRDT );
-		//类似tif文件的tfw 信息, 分辨率起始点
-		double GT[]={0.700389105058,
-				0.000000000000,
-				0.000000000000,
-				-0.700389105058,
-				0.350194552529,
-				89.649805447471};
-		rsInfo.setGeoTransform(GT);
-		rsInfo.setBlockHeight(256);
-		rsInfo.setBlockWidth(256);;
-		ptrRaserAna.RasterColumnInfo(rsInfo);
-		double test[]={0,0,0,0,0,0};
-		//使用数据, 第二个参数为等高线间距为100, 
-		boolean bok = ptrRaserAna.Contour(pras, 50, 0, 0, test, fwriter);
+
+		ptrRaserAna.ContourInterval(25);
+		ptrRaserAna.ResolutionX(0.700389105058);
+		ptrRaserAna.ResolutionY(-0.700389105058);
+		ptrRaserAna.OutputData(fwriter);
+		ptrRaserAna.GeometryDimType(2);
+		ptrRaserAna.SrcX(0.350194552529);
+		ptrRaserAna.SrcY(89.649805447471);
+		boolean bok = ptrRaserAna.Contour(pras, GsRasterDataType.eByteRDT);
 		fwriter.Commit();
 	}
+
+
+
+@Test
+public void testJsonGRIDRasterContour() throws IOException { 
+
+	//创建矢量输出
+	String strCurDir = System.getProperty("user.dir");
+	String strServer = strCurDir+ "/data";
+	GsSqliteGeoDatabaseFactory fcsfac = new GsSqliteGeoDatabaseFactory();
+	GsConnectProperty conn = new GsConnectProperty() ;
+	conn.setServer( strServer);
+	conn.setDataSourceType ( GsDataSourceType.eSqliteFile);
+	GsGeoDatabase pteDB =  fcsfac.Open(conn);
+	GsFeatureClass pFcs = pteDB.OpenFeatureClass("rasterContourtest2");
+	if (pFcs != null)
+		pFcs.Delete();
+	GsFieldVector fdvec = new GsFieldVector();
+	GsFields fds = new GsFields();
+	fdvec.add(new GsField("id",GsFieldType.eIntType));
+	fdvec.add(new GsField("height", GsFieldType.eDoubleType));
+	fds.setFields(fdvec);
+	GsGeometryColumnInfo geoInfo = new GsGeometryColumnInfo();
+	geoInfo.setFeatureType(GsFeatureType.eSimpleFeature);
+	geoInfo.setGeometryType(GsGeometryType.eGeometryTypePolyline);
+	geoInfo.setXYDomain(new GsBox(-180, -90, 180, 90));
+	pFcs = pteDB.CreateFeatureClass("rasterContourtest2",fds, geoInfo, new GsSpatialReference(4326));
+	if (pFcs == null)
+		return;
+	
+//	FeatureWriter fwriter = new FeatureWriter(pFcs);
+//	File file = new File(strServer+"/grid.json");
+//    FileReader reader = new FileReader(file);//定义一个fileReader对象，用来初始化BufferedReader
+//    BufferedReader bReader = new BufferedReader(reader);//new一个BufferedReader对象，将文件内容读取到缓存
+//    StringBuilder sb = new StringBuilder();//定义一个字符串缓存，将字符串存放缓存中
+//    String s = "";
+//    while ((s =bReader.readLine()) != null) {//逐行读取文件内容，不读取换行符和末尾的空格
+//        sb.append(s + "\n");//将读取的字符串添加换行符后累加存放在缓存中
+//        //System.out.println(s);
+//    }
+//    bReader.close();
+//    String str = sb.toString();
+//	//org.json.JSONObject o = new org.json.JSONObject(str);
+//	//int h = o.length();
+//	//int w = o.getJSONArray("").length();
+//	double valuedata[] =  new double [501*412];
+//	GsRasterContour ptrRaserAna = new GsRasterContour();
+//	double nn[] = {};
+//	//boolean bok = ptrRaserAna.Contour(valuedata, w,h,0.00476953125, 0.00476953125, 108.61524498800009, 18.193182648400135, false, -10, 2,24,0,0,nn,fwriter);
+//	fwriter.Commit();
 }
+}
+
 class TxtFeatureWriter extends GsAnalysisDataIO{
 	String m_strFile;
 	
