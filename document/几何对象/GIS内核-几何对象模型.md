@@ -27,9 +27,10 @@ Geometry的几何数据格式转换采用专有的数据Reader和Writer方式实
 |多点| MultiPoint |多点。  
 |线|Line |线，如不通过同一个点两次，则为简单类型。
 |弧线|CircleArc |圆弧线，可以通过任意不在一条直线上的3个点来确定一个圆弧线。
-|圆|Ring|圆
-|折线| Polyline | 由多条线段组成折线，不封闭。
-|多边形| Polygon | 有多条线段组成的多边形。 
+|线|path| 单段线
+|多线| Polyline | 由多条线组成多段线 (多个path)。
+|面|Ring|只有一个圈的面, 简单面
+|多边形| Polygon | 有多圈组成的多边形,(多个ring)。 
 
 
 
