@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "type": "lua",
+            "request": "launch",
+            "name": "Launch",
+            "luaRuntime": "5.3 64bit",
+            //"luaexe": "${workspaceFolder}/lua.exe",
+            //"cpath": "${workspaceFolder}/?.dll",
+            //"console":"internalConsole",
+           // "cwd":"C:\\Users\\chijing\\.vscode\\extensions\\actboy168.lua-debug-1.19.1\\runtime\\win64\\lua51",
+           "consoleCoding": "utf8",
+            //"path": "${workspaceRoot}/?.lua",//c:/Users/chijing/.vscode/extensions/actboy168.lua-debug-1.18.5/runtime/win64/lua53/
+            //"cpath": "D:\\source\\kernel\\releasex64\\*.dll",
+            //"cpath": "c:/Users/chijing/.vscode/extensions/actboy168.lua-debug-1.18.5/runtime/win64/lua53/?.dll",
+            "program": "${workspaceFolder}/geometrytest.lua",
+        }
+    ]
+}

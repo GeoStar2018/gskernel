@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<script src="gsmathseemwarp.js"></script>
+<script src="turf.min.js"></script>
+
+<body>
+    <canvas id="tutorial" width="300" height="300"></canvas>
+    <script>
+        var Module = {
+            onRuntimeInitialized: function () {
+
+                function draw(vec, linewidth, color) {
+                    var canvas = document.getElementById('tutorial');
+                    if (!canvas.getContext) return;
+                    var ctx = canvas.getContext("2d");
+                    ctx.lineWidth = linewidth;//10; 
+                    ctx.strokeStyle = color;//"rgba(255,0,0,0.5)"; 
+                    ctx.beginPath(); //新建一条path
+                    i = 0;
+                    ctx.moveTo(vec[i], vec[i + 1]);
+                    i += 2;
+                    for (; i < vec.length; i += 2) {
+                        ctx.lineTo(vec[i], vec[i + 1]);
+                    }
+
+                    //闭合路径。会拉一条从当前点到path起始点的直线。如果当前点与起始点重合，则什么都不做
+                    ctx.closePath();
+                    ctx.stroke(); //绘制路径。
+                }
+                //--------------------面合并
+                function union() {
+                    console.time("union");
+                    var aint = [1, 3, 1];
+                    var alen = 3;
+                    var acoord = [0.0, 0.0, 100, 0, 100, 100, 0, 100, 0, 0];
+                    var acoordlen = 10;
+                    var retVector1 = Module['CreateDoubleVector'](10);
+                    for (var i = 0; i < retVector1.size(); i++) {
+                        retVector1.set(i, acoord[i]);
+                    }
+
+                    var bint = [1, 3, 1];
+                    var blen = 3;
+                    var bcoord = [50.0, 50.0, 200, 0, 200, 200, 50, 250, 50, 50];
+                    var retVector2 = Module['CreateDoubleVector'](10);
+                    for (var i = 0; i < retVector2.size(); i++) {
+                        retVector2.set(i, bcoord[i]);
+                    }
+
+                    var bcoordlen = 10;
+                    var tol = 0.0;
+
+                    // var fvec = Module['GSECombine'](3, retVector1, 3, retVector2, tol, 1);
+                    var fvec = Module.GSECombine(3, retVector1, 3, retVector2, tol, 1);
+
+                    var cCoord = [];
+                    for (var i = 0; i < fvec.size(); i++) {
+                        //console.log("JS---Vector Value: ", i, " ", fvec.get(i));
+                        cCoord[i] = fvec.get(i);
+                    }
+
+                    if (fvec != null)
+                        console.log('load succeed ');
+                    else
+                        console.log('load fialed');
+                    console.timeEnd("union");
+                    draw(acoord, 15, "rgba(255,0,0,1)");
+                    draw(bcoord, 15, "rgba(255,0,0,1)");
+                    draw(cCoord, 5, "rgba(15,0,15,1)");
+                }
+                //union();
+                //-------------------- union
+                //--------------------多个面n_union
+                function n_union(params) {
+                    //console.time("nunion");
+                    //--- 构成多个面的参数 start
+                    var acoord = [
+                        [0.0, 0.0, 100, 0, 100, 100, 0, 100, 0, 0],
+                        [50.0, 50.0, 200, 0, 200, 200, 50, 250, 50, 50],
+                        [150.0, 150.0, 250, 100, 250, 200, 150, 150]
+                    ];
+                    var inputVector = Module['CreateDoubleVector2'](acoord.length);
+                    for (var i = 0; i < acoord.length; i++) {
+                        var vec = Module['CreateDoubleVector'](acoord[i].length);
+                        for (var j = 0; j < acoord[i].length; j++) {
+                            vec.set(j, acoord[i][j]);
+                        } 
+                        inputVector.set(i, vec);
+                    }
+                    //--- 构成多个面的参数 start
+                    var outVector = Module['CreateDoubleVector2'](1);
+
+                    //Module['GSENunion'](inputVector, outVector, 0.000001);
+                    Module.GSENunion(inputVector, outVector, 0.000001);
+                    
+                    //console.timeEnd("nunion");
+                    if (params) {
+                        //--绘制原始面
+                        for (var i = 0; i < acoord.length; i++) {
+                            draw(acoord[i], 15, "rgba(255,0,0,0.5)");
+                        }
+                        //---绘制 合并面
+                        for (var i = 0; i < outVector.size(); i++) {
+                            var vectmp = outVector.get(i);
+                            var cCoordtmp = [];
+                            for (var j = 0; j < vectmp.size(); j++) {
+                                cCoordtmp[j] = vectmp.get(j);
+                            }
+                            draw(cCoordtmp, 5, "rgba(0,0,0,0.5)");
+                        }
+                    }
+                }
+                console.time("n_GSE_union");
+                for (var i = 0; i < 1; i++)
+                    n_union(false);
+                console.timeEnd("n_GSE_union");
+            }
+        };
+    </script>
+    <script>
+        function turf_union(params) {
+            //console.time("turf_union");
+            var poly1 = turf.polygon([[[0.0, 0.0], [100, 0], [100, 100], [0, 100], [0, 0]]]);
+            var poly2 = turf.polygon([[[50.0, 50.0], [200, 0], [200, 200], [50, 250], [50, 50]]]);
+            var poly3 = turf.polygon([[[150.0, 150.0], [250, 100], [250, 200], [150, 150]]]);
+            var pPolygons = turf.union(poly1, poly2);
+            var outPolygon = turf.union(pPolygons, poly3);
+            //console.timeEnd("turf_union");
+            //console.log(outPolygon);
+        }
+        console.time("n_turf_union");
+
+        for (var i = 0; i < 1; i++)
+           { turf_union();}
+
+        console.timeEnd("n_turf_union");
+    </script>
+</body>
+
+
+</html>
