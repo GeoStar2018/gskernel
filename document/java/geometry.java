@@ -174,11 +174,9 @@ public class geometry {
 	}
 	void geometryToGeoJson(GsGeometry pGeometry)
 	{
-		GsGeoJSONOGCWriter Gjson= new GsGeoJSONOGCWriter();
-		Gjson.Reset();
-		Gjson.Attribute("qwe", new GsAny(1.111));
-		Gjson.Write(pGeometry);
-		System.out.println(Gjson.GeoJSON());
+		GsGeoJSONOGCWriter write = new GsGeoJSONOGCWriter();
+		write.Write(pGeometry);
+		System.out.println(write.GeoJSON());
 	}
 
 	@Test
@@ -205,6 +203,99 @@ public class geometry {
 			
 			
 	}
+	@Test
+	public void Feature2GeoJson()
+	{
+		String strCurDir = System.getProperty("user.dir");
+		
+		String strServer = strCurDir +"/Data/400w";
+		GsConnectProperty conn = new GsConnectProperty(strServer);
+		//conn.setDataSourceType(GsDataSourceType.eShapeFile);
+		
+		GsShpGeoDatabaseFactory fac = new GsShpGeoDatabaseFactory();
+		GsGeoDatabase geoDatabase = fac.Open(conn);
+		if(geoDatabase == null)
+			return;
+		GsFeatureClass featureClass = geoDatabase.OpenFeatureClass("BOU1_4M_S");
+		if(featureClass == null)
+			return;
+
+		GsFeatureCursor cursor = featureClass.Search();
+		long nFeaCount = featureClass.FeatureCount();
+		int writerCount = 0;
+		GsFeature ptrFea = cursor.Next();
+
+		int i = 0;
+
+		GsFields fields = featureClass.Fields();
+		GsFieldVector fds = fields.getFields();
+		
+		GsGeoJSONOGCWriter writer = new GsGeoJSONOGCWriter();
+		
+		writer.BeginFeatureCollection();
+		//writer.StartArray();
+		do
+		{
+			writer.BeginFeature();
+			writer.BeginAttribute();
+			if (ptrFea == null)
+				break;
+			writerCount++;
+			for (i = 2; i< fds.size(); i++)
+			{
+				byte value[] = new byte[10240];
+				ptrFea.Value(i, value, 10240);
+				double height = ptrFea.ValueDouble(i);
+				
+				switch(fds.get(i).getType())
+				{
+				case eBlobType:
+					break;
+				case eBoolType:
+					break;
+				case eDateType:
+					break;
+				case eDoubleType:
+					writer.Attribute(fds.get(i).getName(), ptrFea.ValueDouble(i));
+					break;
+				case eErrorType:
+					break;
+				case eFloatType:
+					break;
+				case eGeometryType:
+					break;
+				case eInt64Type:
+					break;
+				case eIntType:
+					break;
+				case eStringType:
+					writer.Attribute(fds.get(i).getName(), ptrFea.ValueString(i));
+					break;
+				case eUInt64Type:
+					break;
+				case eUIntType:
+					break;
+				default:
+					break;
+				
+				}
+
+			}
+			writer.EndAttribute();
+			writer.Write(ptrFea.Geometry());
+			writer.EndFeature();
+			break;
+			//ptrFea = cursor.Next();
+		} while (ptrFea != null);
+
+		writer.EndFeatureCollection();
+		String json = writer.GeoJSON();
+
+		System.out.println(json);
+
+
+	}
+
 	@Test
 	public void GeometrySimplify()
 	{

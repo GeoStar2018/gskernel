@@ -251,8 +251,73 @@ public class spatialanalysis {
 		return nRet;
 	}
 	
+	long intersect2(String folder,String f1,String f2,double tol,String strOut){
+		GsSqliteGeoDatabaseFactory fac = new GsSqliteGeoDatabaseFactory();
+		GsConnectProperty conn = new GsConnectProperty();
+		String strServer = folder;
+		conn.setServer(strServer);
+		GsGeoDatabase ptrGDB =  fac.Open(conn);
+		if(ptrGDB== null)
+			return 1;
+		 assertNotNull("database is null",ptrGDB); 
 
-	 @Test
+		GsFeatureClass ptrFeaClass1 = ptrGDB.OpenFeatureClass(f1);
+		GsFeatureClass ptrFeaClass2 = ptrGDB.OpenFeatureClass(f2);
+		assertNotNull("featureclass1 is null",ptrFeaClass1);
+		assertNotNull("featureclass2 is null",ptrFeaClass2);
+	
+		
+		FeatureReader io1 = new FeatureReader(ptrFeaClass1);
+		FeatureReader io2 = new FeatureReader(ptrFeaClass2);
+		
+		GsFeatureClass ptrFeaClassOutput = ptrGDB.OpenFeatureClass(strOut);
+		if(ptrFeaClassOutput != null)
+		{
+			//删除地物类
+			ptrFeaClassOutput.Delete();
+			//删除封装对象
+			ptrFeaClassOutput.delete();
+		}
+		//第一个地物类的地物。
+		GsFields fs = ptrFeaClass1.Fields();
+		GsFieldVector vecNew = new GsFieldVector(); 
+		GsFieldVector vec = fs.getFields();
+		 
+		System.out.println("vec.size()"+vec.size());
+		
+		//拼装两个地物的属性字段为一个字段。
+		CopyField(vecNew,vec,"1");
+		CopyField(vecNew,ptrFeaClass2.Fields().getFields(),"2");
+		fs.setFields(vecNew);
+		
+		GsGeometryColumnInfo pinfo = ptrFeaClass1.GeometryColumnInfo();
+		pinfo.setGeometryType(GsGeometryType.eGeometryTypePoint);
+		//创建输出的地物类。
+		ptrFeaClassOutput = ptrGDB.CreateFeatureClass(strOut, fs, pinfo, ptrFeaClass1.SpatialReference());
+		assertNotNull("featureclass2 is null",ptrFeaClassOutput);
+		
+		
+		FeatureWriter ioOut = new FeatureWriter(ptrFeaClassOutput);
+		GsOverlayAnalysis over = new GsOverlayAnalysis(tol);
+		
+		over.Intersect(new GsAnalysisDataIO[]{io1, io2},2, GsJoinAttributeType.eJoinAll,ioOut,GsOverlapResultType.eAsPoint);
+		ioOut.Commit();
+		ioOut.delete();
+		io1.delete();
+		io2.delete();
+		//结果数量。
+		long nRet = ptrFeaClassOutput.FeatureCount();
+		ptrFeaClassOutput.delete();
+		ptrFeaClass1.delete();
+		ptrFeaClass2.delete();
+		over.delete();
+		ptrGDB.delete();
+		conn.delete();
+		fac.delete();
+		return nRet;
+	}
+
+	@Test
 	 public void unionGTText() {
 		 
 		System.out.println("textfileunion TDLYGNFQ_DT and ZG_YD_GHDK_DT");
@@ -320,6 +385,15 @@ public class spatialanalysis {
 
 		String strServer = strCurDir+ "/data/gt";
 		intersect(strServer,"TDLYGNFQ_DT","ZG_YD_GHDK_DT",0.001,"intersect");
+	}
+	@Test
+	public void intersectlines() { 
+		
+		System.out.println("intersect test and test2");
+		String strCurDir = System.getProperty("user.dir");
+
+		String strServer = strCurDir+ "/data/gt";
+		intersect2(strServer,"test","test2", 0.0000001,"intersectlines");
 	}
 	
     public static byte[] float2byte(float f) {
@@ -399,30 +473,33 @@ public class spatialanalysis {
 		FeatureWriter fwriter = new FeatureWriter(pFcs);
 		
 		//随机生成地形数据 256*256
-		int length =256*256;
+		int length =64*64;
 		Random r = new Random();
-		byte[] bytebuff = new byte[256*256];
+		byte[] bytebuff = new byte[64*64];
 		r.nextBytes(bytebuff);
 		GsRaster pras = new GsRaster();
 		pras.DataPtr(bytebuff, length);
-		pras.Width(256);
-		pras.Height(256);
+		pras.Width(32);
+		pras.Height(32);
 		GsRasterContour ptrRaserAna= new GsRasterContour();
 
-		ptrRaserAna.ContourInterval(25);
+		//ptrRaserAna.ContourInterval(0.25);
+		double a[] ={0,50,100};
+		ptrRaserAna.FixedLevels(a, 3);
 		ptrRaserAna.ResolutionX(0.700389105058);
 		ptrRaserAna.ResolutionY(-0.700389105058);
 		ptrRaserAna.OutputData(fwriter);
-		ptrRaserAna.GeometryDimType(2);
+		ptrRaserAna.GeometryDimType(3);
 		ptrRaserAna.SrcX(0.350194552529);
 		ptrRaserAna.SrcY(89.649805447471);
+		ptrRaserAna.MinArea(0);
 		boolean bok = ptrRaserAna.Contour(pras, GsRasterDataType.eByteRDT);
 		fwriter.Commit();
 	}
 
 
 
-@Test
+
 public void testJsonGRIDRasterContour() throws IOException { 
 
 	//创建矢量输出
@@ -640,12 +717,15 @@ class FeatureWriter extends GsAnalysisDataIO{
 		}
 		if(m_ptrFea != null)
 			m_ptrFea.delete();
+		System.out.println(m_Index);
 	} 
 	public int OnData(GsFeatureBuffer pData) {
 		 
 		GsFeature fea = GetFeature();
 		pData.WriteToFeature(fea);
+		System.out.print(pData.ID() + pData.GeometryPtr().GeometryType().toString()+"\t\n");
 		StoreFeature(fea); 
+		m_Index++;
 		//System.out.print(m_Name);
 		//System.out.println(m_Index++);
 		return 0;

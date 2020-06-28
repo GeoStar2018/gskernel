@@ -27,7 +27,7 @@ import com.geostar.kernel.GsStyleTable;
 import com.geostar.kernel.GsStyleTableFactory;
 import com.geostar.kernel.GsWKTOGCReader;
 
-import com.geostar.kernel.extensions.*;
+
 
 public class LoadLibrary {
 	@BeforeClass
@@ -35,12 +35,7 @@ public class LoadLibrary {
 		System.out.println("***************.dll start load***************");
 	
 		System.loadLibrary("gsjavaport");
-
-		System.loadLibrary("ggsextensions");
-		System.out.println("ggsextensions");
-		GsKernel.Initialize();
-		System.loadLibrary("gsjavaport");
-		GsKernel.Initialize();
+			GsKernel.Initialize();
 		System.out.println("***************gsjavaport  load succeed***************");
 		
 
