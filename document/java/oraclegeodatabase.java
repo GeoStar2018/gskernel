@@ -142,6 +142,7 @@ public class oraclegeodatabase {
 	    fdsVector.add(namefd);
 	    GsField idfd =new GsField("ID", GsFieldType.eIntType);
 	    fdsVector.add(idfd);
+	    fs.setFields(fdsVector);
 	    
 	    
 	    GsGeometryColumnInfo oColumnInfo = new GsGeometryColumnInfo(); 
@@ -153,6 +154,12 @@ public class oraclegeodatabase {
 	  
 	    //创建存储数据
 	   GsFeatureClass pfcsClass =   gdb.CreateFeatureClass(strName, fs, oColumnInfo, pSR);
+	   
+	   //获取信息
+	   GsGeometryColumnInfo info = pfcsClass.GeometryColumnInfo();
+	   GsFields fdsFields = pfcsClass.Fields();
+	   GsSpatialReference spatialReference = pfcsClass.SpatialReference();
+	   GsBox	box = pfcsClass.Extent();
 	   
 	  pfcsClass.Transaction().StartTransaction();
 	  GsFeature pFeature =  pfcsClass.CreateFeature();
