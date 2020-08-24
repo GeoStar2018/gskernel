@@ -108,10 +108,13 @@ public class oraclegeodatabase {
 		//GsRefObject obj = GsClassFactory.CreateInstance("OracleSpatialGeoDatabaseFactory");
 		
 		//GsRefObject obj = GsClassFactory.CreateInstance("MySqlGeoDatabaseFactory");
+		
+		String strCurDir = System.getProperty("user.dir");
+		strCurDir += "/test_gdb.gdb";
 		GsRefObject obj = GsClassFactory.CreateInstance("GDBGeoDatabaseFactory");
 		GsGeoDatabaseFactory fac = GsGeoDatabaseFactory.DowncastTo(obj);
 		GsConnectProperty conn = new GsConnectProperty ();
-		conn.setServer("D:\\yxl.gdb");
+		conn.setServer(strCurDir);
 		if(null == fac)
 			return;
 		GsGeoDatabase gdb = fac.Open(conn);
@@ -195,5 +198,107 @@ public class oraclegeodatabase {
             nameString =  pFea.ValueString(2);
             
 		} while (pCursor.Next(pFea));
+	}
+	
+	@Test
+	void RowClassTest()
+	{
+		System.loadLibrary("gsjavaport");
+		GsKernel.Initialize();
+		GsPCGeoDatabase.Initialize();
+		//GsRefObject obj = GsClassFactory.CreateInstance("OracleSpatialGeoDatabaseFactory");
+		
+		//GsRefObject obj = GsClassFactory.CreateInstance("MySqlGeoDatabaseFactory");
+		GsRefObject obj = GsClassFactory.CreateInstance("GDBGeoDatabaseFactory");
+		GsGeoDatabaseFactory fac = GsGeoDatabaseFactory.DowncastTo(obj);
+		GsConnectProperty conn = new GsConnectProperty ();
+		String strCurDir = System.getProperty("user.dir");
+		strCurDir += "/test_gdb.gdb";
+		conn.setServer(strCurDir);
+		if(null == fac)
+			return;
+		GsGeoDatabase gdb = fac.Open(conn);
+		if(null == gdb)
+			return;
+		
+		//枚举数据名称都一样
+		//gdb.DataRoomNames(eDRType, vecName);
+		 
+	    String strName = "dhd"; 
+	    GsFields fs = new GsFields(); 
+	    GsFieldVector fdsVector = new GsFieldVector();
+	    GsField fdoidField =new GsField("OID", GsFieldType.eInt64Type);
+	    GsField namefd =new GsField("NAME", GsFieldType.eStringType);
+	    fdsVector.add(fdoidField);
+	    fdsVector.add(namefd);
+
+	    fs.setFields(fdsVector);
+		GsRowClass pRowClass =  gdb.CreateRowClass("aaa", fs);
+		
+		//存储数据
+		pRowClass.Transaction().StartTransaction();
+		  GsRow pFeature =  pRowClass.CreateRow();
+		  for(int i = 0; i < 100000; i++)
+		  {
+			  pFeature.OID(-1);//设-1会自增
+	
+			  pFeature.Value(1, "Name"+i);
+			  if(!pFeature.Store())
+				  continue;
+			  if(i%10001== 1)
+			  {
+				  pRowClass.Transaction().StartTransaction();
+				  pRowClass.Transaction().CommitTransaction();
+			  }
+		  }
+		  
+		  pRowClass.Transaction().CommitTransaction();
+		    
+		   
+		   
+		   //查询遍历数据
+		   GsQueryFilter spatialQueryFilter = new GsQueryFilter();
+	
+			GsRowCursor pCursor =  pRowClass.Search(spatialQueryFilter);
+			GsRow pFea =  pCursor.Next();
+			String nameString = "";
+			do {
+				if(pFea==null)
+					break;
+
+	            long oid = pFea.OID();
+	            nameString =  pFea.ValueString(1);
+	            
+			} while (pCursor.Next(pFea));
+		
+	}
+	
+	@Test
+	void DataroomFolderTest()
+	{
+		System.loadLibrary("gsjavaport");
+		GsKernel.Initialize();
+		GsPCGeoDatabase.Initialize();
+		//GsRefObject obj = GsClassFactory.CreateInstance("OracleSpatialGeoDatabaseFactory");
+		
+		//GsRefObject obj = GsClassFactory.CreateInstance("MySqlGeoDatabaseFactory");
+		GsRefObject obj = GsClassFactory.CreateInstance("GDBGeoDatabaseFactory");
+		GsGeoDatabaseFactory fac = GsGeoDatabaseFactory.DowncastTo(obj);
+		GsConnectProperty conn = new GsConnectProperty ();
+		String strCurDir = System.getProperty("user.dir");
+		strCurDir += "/test_gdb.gdb";
+		conn.setServer(strCurDir);
+		if(null == fac)
+			return;
+		GsGeoDatabase gdb = fac.Open(conn);
+		if(null == gdb)
+			return;
+		GsDataRoomFolder folder = gdb.OpenDataRoomFolder("a");
+		if(folder!= null)
+			folder.Delete();
+		 folder = 	gdb.CreateDataRoomFolder("a", new GsSpatialReference(4490));
+		 
+		GsFeatureClass pfcsClass =  folder.CreateFeatureClass("dsdsd", new GsFields(), new GsGeometryColumnInfo(),new GsSpatialReference(4490));
+		GsRowClass prowClass =  folder.CreateRowClass("ddd", new GsFields());
 	}
 }

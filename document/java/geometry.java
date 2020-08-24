@@ -21,6 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.geostar.kernel.*;
+import com.geostar.kernel.spatialanalysis.GsAnalysisDataIO;
+import com.geostar.kernel.spatialanalysis.GsInterpolationAlgorithmType;
+import com.geostar.kernel.spatialanalysis.GsInterpolationKrigingParameter;
+import com.geostar.kernel.spatialanalysis.GsRasterInterpolationAnalysis;
 import com.sun.corba.se.spi.ior.ObjectId;
 public class geometry {
 
@@ -203,6 +207,110 @@ public class geometry {
 			
 			
 	}
+	
+	class InterpolationGrid extends GsAnalysisDataIO
+	{
+		GsRasterClass ptrRasterCls = null;
+		GsRaster ptrRaster = new GsRaster();
+		
+		public InterpolationGrid(String tiffile, int rowsize, int colsize, float[] Geo, GsBox bbox, GsSpatialReference pSp)
+		{
+			GsFileGeoDatabaseFactory fac = new GsFileGeoDatabaseFactory();
+			GsConnectProperty conn = new GsConnectProperty();			
+
+			GsFile file = new GsFile(tiffile);
+			if (file.Exists())
+				file.Delete();
+
+			conn.setServer(file.Parent().FullPath());
+			
+			GsGeoDatabase db = fac.Open(conn);
+			if(db == null)
+				return;
+			GsRasterColumnInfo info = new GsRasterColumnInfo();
+			info.setBlockHeight(1);
+			info.setBlockWidth(rowsize);
+			info.setWidth(rowsize);
+			info.setHeight(colsize);
+			info.setDataType(GsRasterDataType.eCFloat64RDT);
+			
+			double[] d = new double[6];
+			for (int i = 0; i < 6; ++i)
+				d[i] = Geo[i];
+			
+			info.setGeoTransform(d);
+			GsIntVector vec = new GsIntVector();
+			vec.add(0);
+			info.BandTypes(vec);
+			info.setXYDomain(bbox);
+			
+			ptrRasterCls = db.CreateRasterClass(file.Name(false), GsRasterCreateableFormat.eGTiff, info, pSp);
+			ptrRaster.Height(1);
+			ptrRaster.Width(rowsize);
+		}
+		
+		public Boolean Writer(int i, int j, byte[] pHead, int nlen)
+		{
+			ptrRaster.OffsetX(i);
+			ptrRaster.OffsetY(j);
+			ptrRaster.DataPtr(pHead, nlen);
+			return ptrRasterCls.WriteRaster(ptrRaster);
+		}
+		
+		public int OnData(GsFeatureBuffer pData)
+		{
+			if (pData == null)
+				return 0;
+			int i = pData.IntValue(2);
+			int j = pData.IntValue(3);
+			int len = pData.BlobValueLength(4);
+			byte[] blob = new byte[len];
+			pData.BlobValue(4, blob, len);
+			Writer(i, j, blob, len);
+			return 0;
+		}
+	}
+	
+	@Test
+	public void SimpleKriging()
+	{
+		System.out.println("简单克吕金插值");
+		//所用的数据是否满足克吕金的要求没有验证，此测试用例主要是为了演示如何使用，具体数据由上层提供
+		double coords[] = {
+				10.1, 10.11,		10.0, 10.3,		10.2, 10.5,
+				10.101, 10.4,		10.1, 10.2,		10.1, 10.6,
+				10.1, 10.6,		10.1, 10.3,		10.0, 10.4
+			};
+
+			double value[] = {
+				1.05, 1.2, 1.1
+			};
+			
+		GsInterpolationKrigingParameter parameter = new GsInterpolationKrigingParameter();
+		parameter.getWeightFactors().add(1);
+		parameter.getWeightFactors().add(2);;
+		parameter.setType(GsInterpolationAlgorithmType.eSimpleKriging);
+		
+		GsRasterInterpolationAnalysis Analyser = new GsRasterInterpolationAnalysis(parameter);
+		Analyser.Height(3);
+		Analyser.Width(3);
+		boolean b = Analyser.Interpolate(coords, coords.length, value);
+		
+		assertTrue(b);
+		
+		GsMatrix mat = new GsMatrix();
+		GsBox box = new GsBox(0, 0, 2.0, 2.0);
+		float[] m = new float[6];
+		mat.Elements(m);
+		
+		String strCurDir = System.getProperty("user.dir");
+		System.out.println(strCurDir);
+		strCurDir += "\\Kriging.tif";
+		
+		InterpolationGrid grid = new InterpolationGrid(strCurDir, 3, 3, m, box, null);
+		Analyser.OutputData(grid);
+	}
+	
 	@Test
 	public void Feature2GeoJson()
 	{
@@ -296,6 +404,32 @@ public class geometry {
 
 	}
 
+	@Test
+	public void ToVoronoiDiagram()
+	{
+		System.out.println("ToVoronoiDiagram(),返回泰森多边形");
+		
+		GsBox box = new GsBox(0.0, 0.0, 3.0, 3.0);
+		GsRing ring = new GsRing(box);
+		GsPolygon border = new GsPolygon();
+		border.Add(ring);
+		
+		GsMultiPoint multiPoint = new GsMultiPoint();
+		multiPoint.Add(1.0, 1.0);
+		multiPoint.Add(2.0, 1.0);
+		multiPoint.Add(2.0, 2.0);
+		multiPoint.Add(1.0, 2.0);
+		
+		GsPolygon VoronoiDiagram = multiPoint.ToVoronoiDiagram(border);
+		long count = VoronoiDiagram.Count();
+		assertEquals(count, 4, 0);
+		
+		GsGeometryBlob blob = multiPoint.GeometryBlobPtr();
+		VoronoiDiagram = blob.ToVoronoiDiagram(border);
+		count = VoronoiDiagram.Count();
+		assertEquals(count, 4, 0);
+	}
+	
 	@Test
 	public void GeometrySimplify()
 	{
