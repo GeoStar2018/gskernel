@@ -1,4 +1,4 @@
-GIS内核-接入ArcGIS 的 MapServer 和ImageServer
+﻿GIS内核-接入ArcGIS 的 MapServer 和ImageServer
 
 ```c++
 //下面代码演示如何打开一个ArcGIS的 服务并创建未内核的GsTileClass对象
@@ -9,7 +9,8 @@ GsGeoDatabasePtr ConnectMapServer(const char* webUrl)
 	GeoStar::Kernel::GsGeoDatabaseFactoryPtr fac = OpenGeoDatabaseFactory("WEB");
 	GsGeoDatabasePtr  pDB = fac->Open(conn);
 	//webUrl = "http://172.15.110.3:6080/arcgis/rest/services/2000/MapServer";//wms
-	//"http://172.15.110.3:6080/arcgis/rest/services/2K/MapServer";wmts
+	//webUrl="http://172.15.110.3:6080/arcgis/rest/services/2K/MapServer";
+	webUrl = "http://172.15.110.3:6080/arcgis/rest/services/Layers/ImageServer";
 	GsArcGISRestServerUriParserPtr ptrUriParser = new GsArcGISRestServerUriParser(webUrl);// conn.Server);
 	GsWebUriParserPtr webparser = ptrUriParser;
 	bool bok = ptrUriParser->ParseCapability();
@@ -20,7 +21,7 @@ GsGeoDatabasePtr ConnectMapServer(const char* webUrl)
 	info.FeatureType = ePrevectorTileFeature;
 	info.ValidBottomLevel = ptrUriParser->BottomLevel();
 	info.ValidTopLevel = ptrUriParser->TopLevel();
-	info.XYDomain =  GsBox(-180, -90, 180, 90);
+	info.XYDomain = ptrUriParser->LayerExtent();
 
 	GsTileClassPtr Raster = pDB->CreateTileClass(ptrUriParser->LayerName().c_str(), ptrUriParser->SpatialReference(), ptrUriParser->Pyramid(), info);
 	GsTMSTileClassPtr tms = Raster;
@@ -38,8 +39,7 @@ GsGeoDatabasePtr ConnectMapServer(const char* webUrl)
 	cacheConn.Server = "D:\\";
 	GsGeoDatabasePtr ptrDB = cacheFac->Open(cacheConn);
 	GsTileClassPtr ptrCacheTs = ptrDB->CreateTileClass(GsMath::NewGUID(), new  GsSpatialReference(4326), GsPyramid::WellknownPyramid(e360DegreePyramid), info);
-	//tms->Cache(ptrCacheTs);
-	return pDB;
+	tms->Cache(ptrCacheTs);
 }
 ```
 
