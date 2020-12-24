@@ -71,8 +71,7 @@ GS_TEST(GsRasterDataMapping, DataMapping_AND_BoundaryBuilder, chijing, 20201222)
 		GsFeaturePtr ptrTarget = ptrFeaClass->CreateFeature();
 
 		ptrFeaClass->Transaction()->StartTransaction();
-		GsGeometryCollectionPtr pColl = ptrGeo;
-		//for (int i = 0; i < pColl->Count(); i++)
+		
 		{
 			ptrTarget->OID(-1);
 			//ptrTarget->Geometry(pColl->Geometry(i));
