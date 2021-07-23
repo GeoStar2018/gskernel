@@ -22,7 +22,7 @@ public class spatialreference {
 		String strCurDir = System.getProperty("user.dir");
 		strCurDir += "/../data/coordinatesystem/EPSG.txt";
 		System.out.println(strCurDir);
-		GsGlobeConfig.Instance().Child("Kernel/spatialreference/EPSG")
+		GsGlobeConfig.Instance().Child("Kernel/SpatialReference/EPSG")
 				.Value(strCurDir);
 		System.out.println("spatialreference");
 		
@@ -534,11 +534,11 @@ public class spatialreference {
 		String strCurDir = System.getProperty("user.dir");
 		strCurDir += "/../data/coordinatesystem/EPSG.txt";
 
-		GsGlobeConfig.Instance().Child("Kernel/SpatialRererence/EPSG")
+		GsGlobeConfig.Instance().Child("Kernel/SpatialReference/EPSG")
 				.Value(strCurDir);
 
 		System.out.println(GsGlobeConfig.Instance()
-				.Child("Kernel/SpatialRererence/EPSG").StringValue(""));
+				.Child("Kernel/SpatialReference/EPSG").StringValue(""));
 
 		GsSpatialReference sr = new GsSpatialReference(4326);
 		System.out.println("WKT is " + sr.ExportToWKT());
