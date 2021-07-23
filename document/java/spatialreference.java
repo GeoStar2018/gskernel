@@ -22,7 +22,7 @@ public class spatialreference {
 		String strCurDir = System.getProperty("user.dir");
 		strCurDir += "/../data/coordinatesystem/EPSG.txt";
 		System.out.println(strCurDir);
-		GsGlobeConfig.Instance().Child("Kernel/SpatialRererence/EPSG")
+		GsGlobeConfig.Instance().Child("Kernel/spatialreference/EPSG")
 				.Value(strCurDir);
 		System.out.println("spatialreference");
 		
