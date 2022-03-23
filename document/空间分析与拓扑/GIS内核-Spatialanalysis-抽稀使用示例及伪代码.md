@@ -1,6 +1,6 @@
 ## 抽稀类使用示例代码 ##
 
-	GS_TEST(GsGeneralityProcess, CheckGenerality_PolygonGenerality, yulei, 20190219) 
+	GS_TEST(GsGeneralityAnalysis, CheckGenerality_PolygonGenerality, yulei, 20190219) 
     {
 		//数据准备
     	std::string fcsFolder = this->MakeInputFolder(GsEncoding::ToUtf8("topo/test"));
@@ -22,7 +22,7 @@
     	GeoStar::Kernel::GsFeatureClassPtr mfd_PointFcs = pDB->CreateFeatureClass(GsEncoding::ToUtf8("LINE2_面"), fds, g, pFcs->SpatialReference());    
     	FeatureClassesWrtier writer(NULL, NULL, mfd_PointFcs);
     	
-    	GsGeneralityProcessPtr ptrGenerality = new GsGeneralityProcess(GsGeneralityProcessType::eGPT_PolygonGenerality, 0.01);//创建抽稀对象
+    	GsGeneralityAnalysisPtr ptrGenerality = new GsGeneralityAnalysis(GsGeneralityAnalysisType::eGPT_PolygonGenerality， 0.01);//创建抽稀对象
     	ptrGenerality->AddData(&pIO1);	//设置输入流    	
     	ptrGenerality->OutputData(&writer);//设置输出流
     
