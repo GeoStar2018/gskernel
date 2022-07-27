@@ -25,17 +25,18 @@
 	virtual bool FieldAliasName(const int nIndex, const char* strAliasName);
 
 目前GsFeatureClass上各数据源得支持字段增删改支持情况如下表:
-
-sqlite       支持: 增加,删除,修改
-shp          支持: 增加,删除,修改
-oracle       支持: 增加,删除,修改
-mysql        支持: 增加,删除,修改
-PG:          支持: 增加,删除,修改​​
-ES支持:      支持:​ 增加,删除,修改
-gdb          支持: 增加,删除,
-gpkg         支持: 增加,删除,
-mongodb      支持: 增加,删除
-Kingbase     支持: 增加,删除
-GBase        支持: 增加,删除
-Memory       支持: 增加,删除
-dameng       支持: 增加,删除
+已支持:
+sqlite     
+oracle     
+mysql      
+PG:        
+gpkg       
+Kingbase   
+GBase      
+未支持
+shp     
+ES      
+gdb     
+mongodb 
+Memory  
+dameng  
