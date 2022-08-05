@@ -84,6 +84,14 @@ GIS内核-地形转等值线示例
 			ptrDataCombineBlob->OffsetX(0);
 			ptrDataCombineBlob->OffsetY(0);
 			ptrDataCombineBlob->DataPtr(data, pRcls->RasterColumnInfo().Height* pRcls->RasterColumnInfo().Width* pixelsize);
+			ptrRaserAna->ResolutionX(pRcls->RasterColumnInfo().GeoTransform[1]);
+			ptrRaserAna->ResolutionY(pRcls->RasterColumnInfo().GeoTransform[5]);
+			//自定义地形间隔
+			//std::vector<double> lv = { 0,100,400,500,1000 };
+			//ptrRaserAna->FixedLevels(&lv[0], lv.size());
+			//double minvalue, maxvalue, c, d;
+			//pRcls->RasterBand(0)->GetStatistics(minvalue, maxvalue, c, d);
+			ptrRaserAna->ContourBase(50);
 			ptrRaserAna->ContourBase(-9999);
 			ptrRaserAna->ContourInterval(500);
 			ptrRaserAna->GeometryDimType(1);
@@ -98,6 +106,8 @@ GIS内核-地形转等值线示例
 			ptrRaserAna->ContourBase(-9999);
 			ptrRaserAna->ContourInterval(500);
 			ptrRaserAna->GeometryDimType(1);
+			ptrRaserAna->ResolutionX(pRcls->RasterColumnInfo().GeoTransform[1]);
+			ptrRaserAna->ResolutionY(pRcls->RasterColumnInfo().GeoTransform[5]);
 			ptrRaserAna->OutputData(&FeatureIO);
 			GsRasterPtr ptrRDataBlob = new GsRaster();
 			if (ptrRcursor->Next(ptrRDataBlob))
